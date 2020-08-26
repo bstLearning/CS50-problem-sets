@@ -7,9 +7,26 @@ void pyramid(int h);
 int main(void)
 {
     int h = get_height();
-    void pyramid(int h);
+    for(int i = 1; i <= h; i++)
+    {
+        string space = " ";
+        int spacenumber = h-i;
+        for(int sn = 1; sn <= h-i; sn++) /// sn for space number
+        {
+            printf("%s", space);
+        }
+        for(int ls = 1; ls <= i; ls++) /// ls for number of left sharp
+        {
+            printf("#");
+        }
+        printf("  ");
+        for(int rs = 1; rs <= i; rs++) ///rs for number of right sharp
+        {
+            printf("#");
+        }
+        printf("\n");
+    }
 }
-
 
 int get_height(void)
 {
@@ -18,15 +35,6 @@ int get_height(void)
     {
        n = get_int("Height: ");
     }
-    while (n<0 || n>8);
+    while (n<=0 || n>8);
     return n;
-}
-
-
-void pyramid(int h)
-{
-    for(int i = 0; i <= 9; i++)
-    {
-        printf("#*%i  #*%i\n", i, i);
-    }
 }
