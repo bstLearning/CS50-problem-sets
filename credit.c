@@ -44,7 +44,7 @@ int main(void)
         checksum += cndf;
         /// printf("%li\n", checksum);
     }
-    /// printf("Length: %i\n", length); ////// get lentgh plus one after evert loop
+    ///printf("Length: %i\n", length); ////// get lentgh plus one after evert loop
  
     ////// Check for card lentgh to catagorize wich card belong and validate accordingly ///////
     if (checksum % 10 == 0) /// valid number
