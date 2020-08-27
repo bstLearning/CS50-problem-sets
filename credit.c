@@ -40,13 +40,13 @@ long calsd(long cardnumber)
     long sd; ///the second-to-last digit
     long sdsum = 0; /// sum of the digits
     
-    for (long d = 100; d < cardnumber*10; d *= 100) ///Plus every other digits by2, starting from the second-to-last digit
+    for (long d = 100; d < cardnumber * 10; d *= 100) ///Plus every other digits by2, starting from the second-to-last digit
     {
-        sd = (cardnumber%d - cardnumber%(d/10)) / (d/10);
+        sd = (cardnumber % d - cardnumber % ( d / 10 )) / (d / 10);
         sd *= 2;
         if (sd >= 10)
         {
-            sd = (sd%100 - sd%10) / 10 + (sd%10);
+            sd = (sd % 100 - sd % 10) / 10 + (sd % 10);
         }
         sdsum += sd;
     }
@@ -59,9 +59,9 @@ long calfd(long cardnumber)
     long fd; ///the first-to-last digit
     long fdsum = 0; /// sum of the digits  
     
-    for (long d = 10; d < cardnumber*10; d *= 100) ///Plus every other digits by2, starting from the first-to-last digit
+    for (long d = 10; d < cardnumber * 10; d *= 100) ///Plus every other digits by2, starting from the first-to-last digit
     {
-        fd = ((cardnumber%d - cardnumber%(d/10)) / (d/10));
+        fd = ((cardnumber % d - cardnumber % (d/10)) / (d/10));
         fdsum += fd;
     }
     return fdsum;
@@ -86,11 +86,11 @@ void checksum(long n, int sum, int len)
 {
     long f2d; /// first 2 digit
     long pwr = 1;
-    for (int i=0; i<len-2; i++) /// 10 to the power of len-2
+    for (int i = 0; i < len - 2; i++) /// 10 to the power of len-2
     {
         pwr *= 10;
     }
-    f2d = (n - (n % pwr))/pwr; /// get first 2 digit of cardnumber
+    f2d = (n - (n % pwr)) / pwr; /// get first 2 digit of cardnumber
     
 
     
@@ -105,7 +105,7 @@ void checksum(long n, int sum, int len)
         {
             printf("MASTERCARD\n");
         }
-        else if  ((f2d - (f2d%10)) / 10 == 4 && (len == 13 || len == 16))
+        else if ((f2d - (f2d % 10)) / 10 == 4 && (len == 13 || len == 16))
         {
             printf("VISA\n");
         }
