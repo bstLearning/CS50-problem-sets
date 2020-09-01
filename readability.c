@@ -12,14 +12,10 @@ float grade(int letters, int words, int sentences);
 
 int main(void)
 {
-    int sentence = 0;
-    
     string s = get_string("Text: ");  
     int letters = letters_counter(s);
     int words = words_counter(s);
     int sentences = sentences_counter(s);
-    
-    /// printf("%i %i %i\n", letters, words, sentences);
     
     float G = grade(letters, words, sentences);
     if (G > 16)
@@ -70,7 +66,7 @@ int sentences_counter(string s)
     int sentences = 0;
     for (int i = 0, n = strlen(s); i < n; i++)
     {
-        if (s[i] == '!' || s[i] == '.' || s[i] == '?') 
+        if (s[i] == '!' || s[i] == '.' || s[i] == '?')  /// ceheck if a ! . or ?
         {
             sentences += 1;
         }
