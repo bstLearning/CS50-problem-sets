@@ -75,6 +75,7 @@ int key_val(int c, string v)
 int encipher(string pt, string v) /// plain text, string argv[1] as intput, cipher text as output
 {
     ///A 65 , a 97,  for pt[i]. if uppercase then..., else if lowercase then...., else if number then ... else if blank, period...
+    printf("ciphertext: ");
     for (int i = 0; i < strlen(pt); i++)
     {
         if (isupper(pt[i]))
@@ -92,5 +93,6 @@ int encipher(string pt, string v) /// plain text, string argv[1] as intput, ciph
             printf("%c", pt[i]);
         }
     }
+    printf("\n");
     return 0;
 }
