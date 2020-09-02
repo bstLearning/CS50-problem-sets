@@ -15,6 +15,10 @@ int main(int argc, string argv[])
         string pt = get_string("plaintext: ");
         encipher(pt, argv[1]);
     }
+    else
+    {
+        return 1;
+    }
 }
 
 
