@@ -15,10 +15,6 @@ int main(int argc, string argv[])
         string pt = get_string("plaintext: ");
         encipher(pt, argv[1]);
     }
-    else if (key_val(argc, argv[1]) != 0)
-    {
-        printf("%s\n", "Usage: ./substitution key");
-    }
 }
 
 
@@ -66,7 +62,12 @@ int key_val(int c, string v)
             return 0; //////////// valided succesccfully 
         }
     }
-    return 1;
+    else
+    {
+        printf("%s\n", "Usage: ./substitution key");
+        return 1;
+    }
+    return 1; /// if no this line, errer:  control may reach end of non-void function 
 }
 
 
@@ -91,6 +92,5 @@ int encipher(string pt, string v) /// plain text, string argv[1] as intput, ciph
             printf("%c", pt[i]);
         }
     }
-    printf("\n");
     return 0;
 }
