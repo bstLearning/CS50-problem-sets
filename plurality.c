@@ -71,10 +71,7 @@ bool vote(string name)
     {
         if (strcmp(candidates[i].name, name) == 0) /// if two string equal, strcmp() return 0
         {
-            ///printf("i for strcmp: %i\n", strcmp(candidates[i].name, name));
-            ///printf("i = %i\n", i);
             candidates[i].votes += 1;
-            ///printf("name:%s, votes:%i\n", candidates[i].name, candidates[i].votes); //// debugging 
             return true; 
         }
     }
@@ -108,22 +105,15 @@ void print_winner(void)
         candidates[i].name = tmps;
     }
     
-    // print winner
-    for (int n = 0; n < candidate_count; n++)
+    // print winner, the largest votes is in last index of array after sorting
+    for (int n = 0; n < candidate_count-1; n++)
     {
-        if (candidates[candidate_count-n].votes > candidates[candidate_count-n-1].votes)
-            {printf("%s\n", candidates[candidate_count-1].name);}
-        else if (candidates[candidate_count-n].votes == candidates[candidate_count-n-1].votes)
-            {printf("%s\n", candidates[candidate_count-1-1].name);}
+        if (candidates[n].votes == candidates[candidate_count-1].votes)
+            {printf("%s\n", candidates[n].name);}
     }
+    {printf("%s\n", candidates[candidate_count-1].name);}
     
-    
-    
-    ///for (int v = 0; v < 3; v++)
-    ///{
-    ///    printf("%s\n", candidates[v].name);
-    ///    printf("%i\n", candidates[v].votes);
-    ///}
+
 
     // TODO done
     return;
