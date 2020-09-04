@@ -67,13 +67,65 @@ int main(int argc, string argv[])
 bool vote(string name)
 {
     // TODO
+    for (int i = 0; i < candidate_count; i++)
+    {
+        if (strcmp(candidates[i].name, name) == 0) /// if two string equal, strcmp() return 0
+        {
+            ///printf("i for strcmp: %i\n", strcmp(candidates[i].name, name));
+            ///printf("i = %i\n", i);
+            candidates[i].votes += 1;
+            ///printf("name:%s, votes:%i\n", candidates[i].name, candidates[i].votes); //// debugging 
+            return true; 
+        }
+    }
+    // TODO done
     return false;
 }
 
 // Print the winner (or winners) of the election
 void print_winner(void)
 {
-    // TODO
+    // Selection sort
+    for (int i = 0; i < candidate_count - 1; i++)
+    {
+        int min_idx = i;
+        int tmp;
+        string tmps;
+        
+        for (int j = i + 1; j < candidate_count; j++)
+        {
+            if (candidates[j].votes < candidates[min_idx].votes)
+            {
+                min_idx = j;
+            }
+        }
+        tmp = candidates[min_idx].votes;  // swap votes
+        candidates[min_idx].votes = candidates[i].votes;
+        candidates[i].votes = tmp;
+        
+        tmps = candidates[min_idx].name;  // swap names
+        candidates[min_idx].name = candidates[i].name;
+        candidates[i].name = tmps;
+    }
+    
+    // print winner
+    for (int n = 0; n < candidate_count; n++)
+    {
+        if (candidates[candidate_count-n].votes > candidates[candidate_count-n-1].votes)
+            {printf("%s\n", candidates[candidate_count-1].name);}
+        else if (candidates[candidate_count-n].votes == candidates[candidate_count-n-1].votes)
+            {printf("%s\n", candidates[candidate_count-1-1].name);}
+    }
+    
+    
+    
+    ///for (int v = 0; v < 3; v++)
+    ///{
+    ///    printf("%s\n", candidates[v].name);
+    ///    printf("%i\n", candidates[v].votes);
+    ///}
+
+    // TODO done
     return;
 }
 
