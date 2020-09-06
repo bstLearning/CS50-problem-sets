@@ -211,6 +211,14 @@ void print_winner(void)
             
         }
     }
+    
+    for (int i = 0; i < pair_count; i++ )
+    {
+        if (WinnerChecker[i] == 0) /// if i'th candidate is not pointed by any 
+            {
+                printf("%s\n", candidates[i]);
+            }
+    }
     return;
 }
 
