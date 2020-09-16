@@ -33,6 +33,7 @@ void add_pairs(void);
 void sort_pairs(void);
 void lock_pairs(void);
 void print_winner(void);
+bool cycle(int a, int b);
 
 int main(int argc, string argv[])
 {
@@ -121,9 +122,10 @@ void record_preferences(int ranks[])
     {
         for (int j = 1; j < candidate_count - n; j++)
         {
-            preferences[ranks[n]][ranks[n+j]]++; /// ranks[n] refer to an int index of candidates
+            preferences[ranks[n]][ranks[n+j]]++; /// ranks[n] refer to an int index n of candidates
         }
     }
+    
     // TODO
     return;
 }
@@ -144,13 +146,14 @@ void add_pairs(void)
             }
         }
     }
+    // TODO
     return;
 }
 
 // Sort pairs in decreasing order by strength of victory
 void sort_pairs(void)
 {
-    // Slection sort, decreasing order of strength of victory,
+    // Slection sort, but decreasing order of strength of victory,
     for (int i = 0; i < pair_count - 1; i++)
     {
         int max_idx = i;
@@ -166,6 +169,7 @@ void sort_pairs(void)
         tmp[i] = pairs[max_idx];
         pairs[max_idx] = pairs[i];
         pairs[i] = tmp[i];
+            
     }
     // TODO
     return;
@@ -174,37 +178,51 @@ void sort_pairs(void)
 // Lock pairs into the candidate graph in order, without creating cycles
 void lock_pairs(void)
 {
-    // TODO   
-    int CycleChecker1 = 0;
-    int CycleChecker2 = 0;
     for (int i = 0; i < pair_count; i++)
-    {
-        CycleChecker1 += pairs[i].winner;
-        CycleChecker2 += pairs[i].loser;
+    {    
+        if (cycle(pairs[i].winner,pairs[i].loser) == false) /// cycle occur: See if the current loser locks onto the current winner, if so, jump to the next arrow
+        {
+            locked[pairs[i].winner][pairs[i].loser]= true;
+        }
     }
-    if (CycleChecker1 != CycleChecker2)
-    {
-        for (int i = 0; i < pair_count; i++)
-        locked[pairs[i].winner][pairs[i].loser]= 1; /// 1, mean true, mean arrow in graph
-    }
-    else
-    {
-        for (int i = 0; i < pair_count - 1; i++) /// -1 prevent creating a cycle
-        locked[pairs[i].winner][pairs[i].loser] = 1;
-    }
-
+    // TODO  
     return;
 }
+
+
+bool cycle(int a, int b) /// a win b, check if cause cycle, if cause cycle, return true
+    {
+        bool result = false;  /// return false if no cycle 
+        if (a == b) // the base case  (when a closed loop occur, or more specific, when loser = winner )
+        {
+            result = true;
+        }
+        else if (a != b)  // the recurssive case 
+        {
+            for (int i = 0; i < candidate_count; i ++)
+            {
+                {
+                    if (locked[b][i] == true) /// if loser b have had arrow already to any other i, see if winner a have pointed(losed) by any other i
+                    {
+                        result = cycle(a, i); /// i is current last loser 
+                    }
+                }
+            }
+        }
+        return result;
+    }
+
 
 // Print the winner of the election
 void print_winner(void)
 {
-    bool WinnerChecker[pair_count];
-    for (int i = 0; i < pair_count; i++) /// pair_count is as big as locked[][]'s length/width
+    // TODO
+    bool WinnerChecker[candidate_count];
+    for (int i = 0; i < candidate_count; i++) 
     {
-        for (int j = 0; j < pair_count; j++)
+        for (int j = 0; j < candidate_count; j++)
         {
-            if (locked[i][j] != 0) /// if !=0, means true in locked[i][j], means an arrow point from i to j
+            if (locked[i][j] == true) /// means an arrow point from i to j
             {
                 WinnerChecker[j] = 1; /// if 1 in checker, means the j'th candidate is pointed 
             }
@@ -212,13 +230,16 @@ void print_winner(void)
         }
     }
     
-    for (int i = 0; i < pair_count; i++ )
+    
+    for (int i = 0; i < candidate_count; i++ )
     {
         if (WinnerChecker[i] == 0) /// if i'th candidate is not pointed by any 
             {
                 printf("%s\n", candidates[i]);
             }
     }
+    
+    // TODO
     return;
 }
 
