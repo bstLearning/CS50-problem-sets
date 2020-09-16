@@ -1,4 +1,5 @@
 #include "helpers.h"
+#include <math.h>
 
 // Convert image to grayscale
 void grayscale(int height, int width, RGBTRIPLE image[height][width])
@@ -7,7 +8,7 @@ void grayscale(int height, int width, RGBTRIPLE image[height][width])
     {
         for (int j = 0; j < width; j++)
         {
-            int arv = (image[i][j].rgbtBlue + image[i][j].rgbtGreen + image[i][j].rgbtRed) / 3;
+            int arv = round((float)(image[i][j].rgbtBlue + image[i][j].rgbtGreen + image[i][j].rgbtRed) / 3);
             image[i][j].rgbtBlue = arv;
             image[i][j].rgbtGreen = arv;
             image[i][j].rgbtRed = arv;
@@ -24,7 +25,8 @@ void reflect(int height, int width, RGBTRIPLE image[height][width])
     {
         for (int j = 0; j < width; j++) // left part of the img
         {
-            tmp[i][j] = image[i][width/2-(j-width/2)];
+            /// tmp[i][j] = image[i][width/2-(j-width/2)];
+            tmp[i][j] = image[i][width - 1 - j];
         }
         for (int k = 0; k < width; k++ ) // right part of the img
         {
@@ -64,9 +66,9 @@ void blur(int height, int width, RGBTRIPLE image[height][width])
                             }
                         }
                 }
-            tmp[i][j].rgbtBlue = sumBlue/counter;
-            tmp[i][j].rgbtGreen = sumGreen/counter;
-            tmp[i][j].rgbtRed = sumRed/counter;
+            tmp[i][j].rgbtBlue = round((float)sumBlue/counter);
+            tmp[i][j].rgbtGreen = round((float)sumGreen/counter);
+            tmp[i][j].rgbtRed = round((float)sumRed/counter);
 
         }
     }
@@ -94,33 +96,38 @@ void edges(int height, int width, RGBTRIPLE image[height][width])
     {
         for (int j = 0; j < width; j++) 
         {
-            float sumBlueX = 0, sumGreenX = 0, sumRedX = 0;
-            float sumBlueY = 0, sumGreenY = 0, sumRedY = 0;
+            int sumBlueX = 0, sumGreenX = 0, sumRedX = 0;
+            int sumBlueY = 0, sumGreenY = 0, sumRedY = 0;
 
             for (int k = -1; k <= 1; k++) // adjacent nine pixels that form a 3x3 box around the pixel
                 {
                     for (int n = -1; n <= 1; n++)
                         {
-                            if (i == 0 || i == height-1 || j == 0 || j == width-1) /// pixle on edge and corner of img dont have fully 8 adjacent square
+                            int ik = i + k;
+                            int jn = j + n;
+                            
+                            if (ik < 0 || ik >= height) /// pixle on edge and corner of img dont have fully 8 adjacent square
                             {
                                 ///  treat the image as if there was a 1 pixel solid black border around the edge of the image
+                                ik = 0;
                             }
-                            else
+                            if (jn < 0 || jn >= width)
                             {
-                            sumBlueX += (image[i+k][j+n].rgbtBlue * Gx[k+1][n+1]);  
-                            sumGreenX += (image[i+k][j+n].rgbtGreen * Gx[k+1][n+1]);
-                            sumRedX += (image[i][j+n].rgbtRed * Gx[k+1][n+1]);
-                            
-                            sumBlueY += (image[i+k][j+n].rgbtBlue * Gy[k+1][n+1]);
-                            sumGreenY += (image[i+k][j+n].rgbtGreen * Gy[k+1][n+1]);
-                            sumRedY += (image[i+k][j+n].rgbtRed * Gy[k+1][n+1]);
-
+                                ///  treat the image as if there was a 1 pixel solid black border around the edge of the image
+                                jn = 0;
                             }
+                            sumBlueX += (image[ik][jn].rgbtBlue * Gx[k+1][n+1]);  
+                            sumGreenX += (image[ik][jn].rgbtGreen * Gx[k+1][n+1]);
+                            sumRedX += (image[ik][jn].rgbtRed * Gx[k+1][n+1]);
+                            
+                            sumBlueY += (image[ik][jn].rgbtBlue * Gy[k+1][n+1]);
+                            sumGreenY += (image[ik][jn].rgbtGreen * Gy[k+1][n+1]);
+                            sumRedY += (image[ik][jn].rgbtRed * Gy[k+1][n+1]);
                         }
                 }
-            int blue = round(sqrt(pow(sumBlueX, 2) + pow(sumBlueY, 2)));
-            int green = round(sqrt(pow(sumGreenX, 2) + pow(sumGreenY, 2)));
-            int red = round(sqrt(pow(sumRedX, 2) + pow(sumRedY, 2)));
+            int blue = round((float)(sqrt(pow(sumBlueX, 2) + pow(sumBlueY, 2))));
+            int green = round((float)(sqrt(pow(sumGreenX, 2) + pow(sumGreenY, 2))));
+            int red = round((float)(sqrt(pow(sumRedX, 2) + pow(sumRedY, 2))));
             
             if (blue > 255)
                 {blue = 255;}
@@ -149,3 +156,4 @@ void edges(int height, int width, RGBTRIPLE image[height][width])
     
     return;
 }
+ 
