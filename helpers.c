@@ -103,26 +103,27 @@ void edges(int height, int width, RGBTRIPLE image[height][width])
                 {
                     for (int n = -1; n <= 1; n++)
                         {
-                            int ik = i + k;
-                            int jn = j + n;
-                            
-                            if (ik < 0 || ik >= height) /// pixle on edge and corner of img dont have fully 8 adjacent square
+                            if (i + k < 0 || i + k >= height || j + n < 0 || j + n >= width) /// pixle on edge and corner of img dont have fully 8 adjacent square
                             {
                                 ///  treat the image as if there was a 1 pixel solid black border around the edge of the image
-                                ik = 0;
+                                sumBlueX += (0 * Gx[k+1][n+1]);
+                                sumGreenX += (0 * Gx[k+1][n+1]);
+                                sumRedX += (0 * Gx[k+1][n+1]);
+                                
+                                sumBlueY += (0 * Gy[k+1][n+1]);
+                                sumGreenY += (0 * Gy[k+1][n+1]);
+                                sumRedY += (0 * Gy[k+1][n+1]);
                             }
-                            if (jn < 0 || jn >= width)
+                            else 
                             {
-                                ///  treat the image as if there was a 1 pixel solid black border around the edge of the image
-                                jn = 0;
+                                sumBlueX += (image[i+k][j+n].rgbtBlue * Gx[k+1][n+1]);  
+                                sumGreenX += (image[i+k][j+n].rgbtGreen * Gx[k+1][n+1]);
+                                sumRedX += (image[i+k][j+n].rgbtRed * Gx[k+1][n+1]);
+                                
+                                sumBlueY += (image[i+k][j+n].rgbtBlue * Gy[k+1][n+1]);
+                                sumGreenY += (image[i+k][j+n].rgbtGreen * Gy[k+1][n+1]);
+                                sumRedY += (image[i+k][j+n].rgbtRed * Gy[k+1][n+1]);
                             }
-                            sumBlueX += (image[ik][jn].rgbtBlue * Gx[k+1][n+1]);  
-                            sumGreenX += (image[ik][jn].rgbtGreen * Gx[k+1][n+1]);
-                            sumRedX += (image[ik][jn].rgbtRed * Gx[k+1][n+1]);
-                            
-                            sumBlueY += (image[ik][jn].rgbtBlue * Gy[k+1][n+1]);
-                            sumGreenY += (image[ik][jn].rgbtGreen * Gy[k+1][n+1]);
-                            sumRedY += (image[ik][jn].rgbtRed * Gy[k+1][n+1]);
                         }
                 }
             int blue = round((float)(sqrt(pow(sumBlueX, 2) + pow(sumBlueY, 2))));
