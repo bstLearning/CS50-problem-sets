@@ -180,9 +180,9 @@ void lock_pairs(void)
 {
     for (int i = 0; i < pair_count; i++)
     {    
-        if (cycle(pairs[i].winner,pairs[i].loser) == false) /// cycle occur: See if the current loser locks onto the current winner, if so, jump to the next arrow
+        if (!cycle(pairs[i].winner,pairs[i].loser)) /// cycle occur: See if the current loser locks onto the current winner, if so, jump to the next arrow
         {
-            locked[pairs[i].winner][pairs[i].loser]= true;
+            locked[pairs[i].winner][pairs[i].loser] = true;
         }
     }
     // TODO  
@@ -190,23 +190,20 @@ void lock_pairs(void)
 }
 
 
-bool cycle(int a, int b) /// a win b, check if cause cycle, if cause cycle, return true
+bool cycle(int cycle_start, int loser) /// a win b, check if cause cycle, if cause cycle, return true
     {
-        bool result = false;  /// return false if no cycle 
-        if (a == b) // the base case  (when a closed loop occur, or more specific, when loser = winner )
+        bool result = false;
+        // the base case 
+        if (cycle_start == loser) ///(when a closed loop occur, or more specific, when current loser is the cycle start)
         {
             result = true;
         }
-        else if (a != b)  // the recurssive case 
+        // the recurssive case 
+        for (int i = 0; i < candidate_count; i ++)
         {
-            for (int i = 0; i < candidate_count; i ++)
+            if (locked[loser][i]) /// if loser have had arrow already to any other i, see if cycle_starter have pointed(losed) by i
             {
-                {
-                    if (locked[b][i] == true) /// if loser b have had arrow already to any other i, see if winner a have pointed(losed) by any other i
-                    {
-                        result = cycle(a, i); /// i is current last loser 
-                    }
-                }
+                result = cycle(cycle_start, i); /// i is current last loser 
             }
         }
         return result;
