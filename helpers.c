@@ -103,7 +103,7 @@ void edges(int height, int width, RGBTRIPLE image[height][width])
                 {
                     for (int n = -1; n <= 1; n++)
                         {
-                            if (i + k < 0 || i + k >= height || j + n < 0 || j + n >= width) /// pixle on edge and corner of img dont have fully 8 adjacent square
+                            if (i + k < 0 || i + k >= height || j + n < 0 || j + n >= width) /// treat as if there's a 1 pixel solid black border around the edge of the image
                             {
                                 ///  treat the image as if there was a 1 pixel solid black border around the edge of the image
                                 sumBlueX += (0 * Gx[k+1][n+1]);
