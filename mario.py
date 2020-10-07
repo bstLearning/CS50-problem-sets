@@ -12,7 +12,7 @@ def pyramid():
             break
     
     for i in range(1, h+1):
-        spacenumber = h+1-i
+        spacenumber = h-i
         print(" " * spacenumber + "#" * i + "  " + "#" * i)
 
 
