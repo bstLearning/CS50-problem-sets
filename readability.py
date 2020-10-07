@@ -27,7 +27,7 @@ def letters_counter(str):
 def sentences_counter(str):
     sentences = 0
     for s in str:
-        if s == "!" or s == "." or s =="?":
+        if s == "!" or s == "." or s == "?":
             sentences += 1
     return sentences
     
