@@ -1,0 +1,82 @@
+@media screen{
+    .site-header{
+        width: 95%;
+        height: 120px;
+        margin: auto;
+    }
+    .site-title{
+        margin-bottom: 0px;
+        font-size: 35px;
+        font-weight: 700;
+        color: rgb(92, 133, 214);
+    }
+    .site-description{
+        font-weight: 100;
+        color: rgb(0, 51, 153);
+    }
+    #menu-primary{
+    justify-content: flex-end;
+    margin-left: -8px;
+    margin-right: -8px;
+    }
+    
+    
+    
+    .site-content{
+        padding-left: 15%;
+        padding-right: 15%;
+        font-family: sans-serif;
+        
+    }
+    .entry-header{
+        text-align: center;
+        padding: 20px;
+        font-weight: 700;        
+    }
+    .codeblock {
+    background-color: #eee;
+    display: block;
+    padding: 5px;
+    margin: 1em 0;
+    }
+}
+
+
+@media screen and (max-width:480px){
+    .site-header{
+        width: 95%;
+        height: 120px;
+        margin: auto;
+    }
+    .site-title{
+        margin-bottom: 0px;
+        font-size: 35px;
+        font-weight: 700;
+        color: rgb(92, 133, 214);
+    }
+    .site-description{
+        font-weight: 100;
+        color: rgb(0, 51, 153);
+    }
+    
+    
+    
+    
+    .site-content{
+        padding-left: 5%;
+        padding-right: 5%;
+        font-family: sans-serif;
+        
+    }
+    .entry-header{
+        text-align: center;
+        padding: 10px;
+        font-size: 50%;
+        font-weight: 700;        
+    }
+    .codeblock {
+    background-color: #eee;
+    display: block;
+    padding: 5px;
+    }
+}
