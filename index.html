@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+
+<html lang="zh-TW">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+        <link href="styles.css" rel="stylesheet">
+        <title>
+            Homepage
+        </title>
+        <script>
+            window.onlaod = function(){
+                var oMessageBox = document.getElementByID("messageBox")
+                var oInput = document.getElementById("myInput")
+                var oPostBtn = document.getElementById("doPost")
+                
+                oPostBtn.onclick = function(){
+                    if(oInput.value){
+        				var oMessageContent = document.createElement("div");
+        				oMessageContent.className = "message_content";
+        				oMessageContent.innerHTML = oInput.value;
+        				oInput.value = "";
+        				oMessageBox.appendChild(oMessageContent);
+                    }
+                }
+            }
+        </script>
+    </head>
+    <body>
+        <header id="mashead" class="site-header">
+            <p class="site-title">
+                Benson Tuan
+            </p>
+            <p class="site-description">
+                CS & Korean learning (Demo website)
+            </p>
+            
+            <ul class="nav justify-content-end" id="menu-primary">
+              <li class="nav-item">
+                <a class="nav-link active" href="#">Home</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="https://bst9508.wordpress.com/about/">About me</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="https://bst9508.wordpress.com/2020/09/14/cs50-%e7%ad%86%e8%a8%98-pset1/">My Other Site</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="https://bst9508.wordpress.com/contact/">Contact</a>
+              </li>
+            </ul>   
+            
+            
+            
+        </header>
+        
+        
+        <div id="content" class="site-content">
+            <article id="post">
+                <header class="entry-header">
+                    <h1> CS50 第一周作業</h1>
+                </header>
+                <div class="content">
+                    <p style="line-height:1.5;">
+                        CS50 每周作業都稱之為 pset (problem set)，在這裡我會記錄自己實作 pset 的想法，盡可能也回顧一些上課教學的內容。
+                        也希望記下一些英文說法(nomenclature/terminology)，以備將來 google 時派得上用場：
+                    </p>
+                    
+                    <h5>
+                        Format code
+                    </h5>
+                    <p>
+                        C 以 <code>printf(“%i", 316)</code>; 印出內容，<code>%i</code> 代表要列印的資料型態。
+                    </p>
+                    
+                    <h5>
+                        Function 黑箱子
+                    </h5>
+                    <p>
+                        CS50 用黑箱子比喻，這暗示了：大多時候不用去了解黑箱子內的運作細節，只需瞭解如何使用、如何讓人使用。
+                        我猜想用函數可方便與他人協作、或是方便未來的自己維護；往後要學的資料型態、include 別人的檔案，應該都一脈相承：站在巨人的肩膀上，借力使力。
+                    </p>
+                    
+                    <h5>
+                        Main function / Helper function
+                    </h5>
+                    <p>
+                        如何協助完成做一碗芒果冰(Main Function)？可能是「備水果料」(Helper Function)。
+                        像這樣把不同功能的黑箱子獨立出來，有助可讀性。
+                        只要看 Main function 這個主要的黑箱子就能大概猜出這檔案想達成的目的是「做一碗芒果冰」，不用在看完一大串細節後才瞭解了解細節是如何運作的，因為把細節都打包到 Helper function 了。
+                        Main function 習慣放在 Helper function 前面，方便閱讀。
+                    </p>
+                    
+                    <h5>
+                        Function declaration / Function prototype
+                    </h5>
+                    <p>
+                        為了可讀性習慣將Main function 習慣放在 Helper function 前面，但在 Main function 前面要宣告過 Helper function 在後面會出現。
+                    </p>
+                    
+                    <h4>
+                        Pset1: Mario
+                    </h4>
+                    
+                    <p>pset1 要求使用者輸入數字 1~8，並相對應印出高為 1~8 的馬力歐金字塔，若數字不符合1~8，會重新提問，請使用者再次輸入整數。在 Terminal 呈現如下：</p>
+                    
+                    <pre class="codeblock">
+                        <code>
+                            $ <kbd>./mario;</kbd>
+                            Height: <kbd>-1</kbd>
+                            Height: <kbd>0</kbd>
+                            Height: <kbd>42</kbd>
+                            Height: <kbd>50</kbd>
+                            Height: <kbd>4</kbd>
+                               #  #
+                              ##  ##
+                             ###  ###
+                            ####  ####
+                        </code>
+                    </pre>
+                    
+                    <p> 
+                        
+                    </p>
+                    
+                    
+                </div>
+                
+            	
+            
+            	<div class="response">
+                <div class="response-title">留言板</div>
+                <div>
+                    <input id="myInput" type="text" placeholder="請輸入留言內容">
+                    <button id="doPost" onclick="this.style.backgroundColor='rgb(92, 133, 214)'">提交</button></div>
+                </div>
+            
+                
+                <footer class="entry-footer">
+                    <div class="message_box" id="messageBox"> <!--- Message Box ---> </div>
+                </footer>
+            </article>
+        </div>
+
+    </body>
+</html>
