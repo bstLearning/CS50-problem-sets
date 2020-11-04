@@ -1,0 +1,30 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Quote
+{% endblock %}
+
+{% block main %}
+    
+    <div id="quote query">
+        <form action="/quote" method="post">
+            <div class="form-group">
+                <input autocomplete="off" autofocus class="form-control" name="quote" placeholder="Symbol" type="text">
+            </div>
+            <button class="btn btn-primary" type="submit">Quote</button>
+        </form>
+    </div>
+
+    {% if result %}
+    <div style="margin-top: 25px;">
+        <p> A share of {{ result["name"] }}.({{ result["symbol"] }}) costs </p>
+        <p> ${{ result["price"] }}. </p>
+    </div>
+    {% endif %}
+
+
+{% endblock %}
+
+
+
+ # eg {'name': 'Apple, Inc.', 'price': 116.87, 'symbol': 'AAPL'}

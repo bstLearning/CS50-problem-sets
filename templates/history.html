@@ -1,0 +1,44 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    history
+{% endblock %}
+
+{% block main %}
+    <table class="table table-striped">
+        <thread>
+            <tr>
+                <th>Symbol</th>
+                <th>Shares</th>
+                <th>Prices</th>
+                <th>time</th>
+                <th>State</th>
+            </tr>
+        </thread>
+        
+        <tbody>
+            {% for i in range(0, len) %}
+            
+            {% if rows[i]["shares"] > 0 %}
+            <tr>
+                <td>{{ rows[i]["symbol"] }}</td>
+                <td>{{ rows[i]["shares"] }}</td>
+                <td>{{ rows[i]["price"] }}</td>
+                <td>{{ rows[i]["time"] }}</td>
+                <td> bought </td>
+            </tr>
+            
+            {% elif rows[i]["shares"] < 0 %}
+            <tr>
+                <td>{{ rows[i]["symbol"] }}</td>
+                <td>{{ - rows[i]["shares"] }}</td>
+                <td>{{ rows[i]["price"] }}</td>
+                <td>{{ rows[i]["time"] }}</td>
+                <td> sold </td>
+            </tr>
+            {% endif %}
+            
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
