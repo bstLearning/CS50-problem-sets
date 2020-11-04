@@ -1,0 +1,60 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Log In
+{% endblock %}
+
+{% block main %}
+    <table class="table table-striped">
+        <thread>
+            <tr>
+                <th>Symbol</th>
+                <th>Name</th>
+                <th>Shares</th>
+                <th>Price</th>
+                <th>TOTAL</th>
+                <th></th>
+            </tr>
+        </thread>
+        <!---------Display db------------------------------>
+        <tbody>
+            {% for i in range(0, len) %}
+            <tr>
+                <td>{{ rows[i]["symbol"] }}</td>
+                <td>{{ name[i] }}</td>
+                <td>{{ rows[i]["sharesTotal"] }}</td>
+                <td>{{ latestPrice[i] }}</td>
+                <td>{{ total[i] }}</td>
+                <td>
+                    <div style="display: inline-block;">
+                        <form action="#" method="GET">
+                            <input type="hidden" name="symbol" value="{{ rows[i]['symbol'] }}">
+                            <input type="text" name="shares" placeholder="Shares">
+                            <input type="submit" value="Buy" formaction="/buy">
+                            <input type="submit" value="Sell" formaction="/sell">
+                        </form>
+                    </div>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+        <tfoot>
+            <tr>
+                <td>Cash</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td>{{ cash }}</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td> {{ totalSum }}</td>
+                <td></td>
+            </tr>
+        </tfoot>
+    </table>
+{% endblock %}
